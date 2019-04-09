@@ -12,9 +12,9 @@
 
 ### cpmdir
 
- * print out and display contents of the disk image (Including the empty spaces)
- * print out just the directories that contain data (find directories function)
-
+* Print out specified files from the drive/disk
+* Be able to print all the files on the drive or disk
+* Be able to print out specified types of files (txt, md, etc..)
 
 
 
@@ -29,8 +29,13 @@
  * Determine if there is enough space left in the file we are copying data to
  * Determine where the data is to be copied
  * Add the data to the specified file and mark it in the file directory
+ * Be able to copy all specified types of directories from disk/drive
+ * Be able to copy specified files from the drive/disk
+ * Be able to copy specified file types from drive/disk
 
 
 ### cpmremove
 
- * Mark the files in the specified file directory to be empty
+ * Be able to remove all types of files (txt, md, etc..)
+ * Be able to remove all files on disk/drive
+ * Be able to remove specified files on the disk/drive
