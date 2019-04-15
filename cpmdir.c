@@ -1,25 +1,16 @@
 #include <stdio.h>
 
-#include "Directory.h"
+#include "readFlag.h"
 
-int main(int argc, char** argv) {
-  char* file1 = argv[1];
-  FILE* diskIn;
-  char floppy;
-  char drive;
-  int flag = 0;
+int main(int argc, char* argv[]) {
+  //char* file1 = argv[1];
+  //FILE* diskIn;
+  //char floppy;
+  //char drive;
+  int flag = readFlag(argc, argv);
 
-  while ((opt = getopt(argc, argv, "fd")) != -1) {
-    switch (opt) {
-    case 'f':
-      flag = 1;
-      break;
-    default:
-      printf("Usage %s [-fd] filename(s) \n", argv[0]);
-      exit(-1);
-    }
-
-
+  printf("%i\n", flag);
+  /*
   diskIn = fopen(file1, "rb"); // Open and read file
 
   int getopt(int argc, char* const argv[], const char *optstring);
@@ -34,5 +25,5 @@ int main(int argc, char** argv) {
 
   }
 
-
+  */
 }
