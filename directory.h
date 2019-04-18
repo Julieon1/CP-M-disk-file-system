@@ -15,6 +15,7 @@ struct disk
   int maxDir;
   int blockSize;
   int bootTrk;
+  int blockNum;
 };
 
 struct directory {
