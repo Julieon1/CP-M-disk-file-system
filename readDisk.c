@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "readDisk.h"
-#include "Directory.h"
+#include "directory.h"
 #include "initializeDisk.h"
 
 void readDisk(int argc, char* argv[], int flag) {

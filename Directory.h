@@ -1,10 +1,10 @@
 #ifndef _DIRECTORY_H
 #define _DIRECTORY_H
 
-typedef struct Disk *diskPtr;
-typedef struct Directory *dirPtr;
+typedef struct disk *diskPtr;
+typedef struct directory *dirPtr;
 
-struct Disk
+struct disk
 {
   int secLength;
   int tracks;
@@ -15,7 +15,7 @@ struct Disk
   int blockSize;
 };
 
-struct Directory {
+struct directory {
   char userNum;
   char fileName[8];
   char fileType[3];
