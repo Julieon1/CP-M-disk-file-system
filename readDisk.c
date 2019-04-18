@@ -1,24 +1,45 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "readDisk.h"
 #include "Directory.h"
-#include "initializeDisk.h"
+#include "readDisk.h"
 
-void readDisk(int argc, char* argv[], int flag) {
+/*
+  Iterates through disk for the directory
+
+*/
+
+void readDisk(int argc, char* argv[], diskPtr currentDisk) {
   FILE* diskIn;
-  diskPtr currentDisk = malloc(sizeof(struct Disk));
-  //char* sector = char[128];
-
-  initializeDisk(currentDisk, flag); // Determines Data sizes from flag
+  //char sectorSize[currentDisk->secLength];
 
   diskIn = fopen(argv[2], "rb"); // Open and read file
+  //char* sector = malloc(sizeof(sectorSize));
 
-  fseek(diskIn, sizeof(char[2048]), SEEK_SET);
+  for (int t = (currentDisk->bootTrk+1) ; t < currentDisk->tracks ; t++) { // Current Track
+    int secLoc = 0;
+    for (int s = 0 ; s < currentDisk->sectrk ; s++) { // Current Sector Adjusting for Skew
+      if (secLoc > currentDisk->sectrk) { // Loops back if current sector location is greater than the sectrk
+        secLoc -= currentDisk->sectrk;
+      }
 
+      if (secLoc == 0) { // Makes the first sector in the track location to be 1
+        secLoc = 1;
+      }
+      else if (secLoc == 1){ // Changes Loop to start at 2 if the sector location returns to 1
+        secLoc = 2;
+      }
 
+      //fseek(diskIn, t*(secLoc*currentDisk->secLength), SEEK_SET);
+      //fread(sector, sizeof(sectorSize), 1, diskIn);
 
-  //sector = malloc(sizeof(sector));
-
-  free(currentDisk);
+      printf("%i", t);
+      printf("%s", ": ");
+      printf("%i\n", secLoc);
+      //printf("%s\n", sector);
+      secLoc += currentDisk->skew;
+    }
+  }
+  fclose(diskIn);
+  //free(sector);
 }

@@ -3,8 +3,9 @@
 
 typedef struct Disk *diskPtr;
 typedef struct Directory *dirPtr;
+typedef struct directoryList *listPtr;
 
-struct Disk
+struct Disk // Structure that stores disk data, initialized in initializeDisk.c
 {
   int secLength;
   int tracks;
@@ -13,17 +14,23 @@ struct Disk
   int skew;
   int maxDir;
   int blockSize;
+  int bootTrk;
 };
 
-struct Directory {
-  char userNum;
+struct Directory { // Structure that contains Directory Data
+  unsigned char userNum; // 0 or E5 Status Byte. Read
   char fileName[8];
   char fileType[3];
-  char fileExtent;
-  char reserve1;
-  char reserve2;
-  char recordNum;
+  unsigned char fileExtent;
+  unsigned char reserve1;
+  unsigned char reserve2;
+  unsigned char recordNum;
   char diskmap[16];
+};
+
+struct directoryList {
+  dirPtr* directory;
+  listPtr* next;
 };
 
 #endif

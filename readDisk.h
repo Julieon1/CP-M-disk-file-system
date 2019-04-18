@@ -1,3 +1,3 @@
 
 
-void readDisk(int argc, char* argv[], int flag);
+void readDisk(int argc, char* argv[], diskPtr currentDisk);
