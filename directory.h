@@ -1,6 +1,7 @@
 #ifndef _DIRECTORY_H
 #define _DIRECTORY_H
 
+typedef struct directoryList *listPtr;
 typedef struct disk *diskPtr;
 typedef struct directory *dirPtr;
 
@@ -13,17 +14,23 @@ struct disk
   int skew;
   int maxDir;
   int blockSize;
+  int bootTrk;
 };
 
 struct directory {
-  char userNum;
+  unsigned char userNum; // 0 or E5 Status Byte. Read
   char fileName[8];
   char fileType[3];
-  char fileExtent;
-  char reserve1;
-  char reserve2;
-  char recordNum;
+  unsigned char fileExtent;
+  unsigned char reserve1;
+  unsigned char reserve2;
+  unsigned char recordNum;
   char diskmap[16];
+};
+
+struct directoryList {
+  dirPtr* directory;
+  listPtr* next;
 };
 
 #endif
