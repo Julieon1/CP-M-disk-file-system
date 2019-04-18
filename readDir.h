@@ -1,0 +1,1 @@
+int readDir(dirPtr dp);

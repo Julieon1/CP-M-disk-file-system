@@ -1,11 +1,11 @@
 #ifndef _DIRECTORY_H
 #define _DIRECTORY_H
 
-typedef struct Disk *diskPtr;
-typedef struct Directory *dirPtr;
 typedef struct directoryList *listPtr;
+typedef struct disk *diskPtr;
+typedef struct directory *dirPtr;
 
-struct Disk // Structure that stores disk data, initialized in initializeDisk.c
+struct disk
 {
   int secLength;
   int tracks;
@@ -17,7 +17,7 @@ struct Disk // Structure that stores disk data, initialized in initializeDisk.c
   int bootTrk;
 };
 
-struct Directory { // Structure that contains Directory Data
+struct directory {
   unsigned char userNum; // 0 or E5 Status Byte. Read
   char fileName[8];
   char fileType[3];
