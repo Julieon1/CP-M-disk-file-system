@@ -9,11 +9,12 @@
 
 */
 
-void readDisk(FILE* diskIn, diskPtr currentDisk, short int* allocationMap) {
-  int allocationTracker = 0;
-  int currentSector = 0;
+void readDisk(FILE* diskIn, diskPtr currentDisk, short int* allocationMap, listPtr head ) {
+  int allocationTracker = 0; // Tracks the current block allocation location
+  int currentSector = 0; // Tracks the current logical sector
   unsigned char sectorSize[currentDisk->secLength];
   unsigned char* sector = malloc(sizeof(sectorSize));
+
 
   for (int t = 1 ; t < currentDisk->tracks ; t++) { // Current Track
     int secLoc = 0;
@@ -33,11 +34,11 @@ void readDisk(FILE* diskIn, diskPtr currentDisk, short int* allocationMap) {
       fseek(diskIn, t*(secLoc*currentDisk->secLength), SEEK_SET); // Seeks record at specific track and sector
       fread(sector, sizeof(sectorSize), 1, diskIn); // Reads sought sector into sector
 
+
       /*
-      Determined by the first byte of the first sector.
+      Block Usage determined by the first byte of the first sector.
       Should block usage be determined by directory entries?
       */
-
       if (currentSector % 4 == 0) { // Determines current Block and marks locations in AllocationMap
         if (t < currentDisk->bootTrk) { // If the current block is within the boot track range, mark as used
           allocationMap[allocationTracker] = 1;
@@ -54,11 +55,31 @@ void readDisk(FILE* diskIn, diskPtr currentDisk, short int* allocationMap) {
       }
       currentSector++;
 
+      fseek(diskIn, t*(secLoc*currentDisk->secLength), SEEK_SET); // Returns the marker to the beginning of the sector
+
+      /*
+        Builds a linked list of directory entries by reading in 4 records per sector of the directory allocation
+      */
+      // (maxDir*32)/secLength+bootTrk*secTrk
+      int endofDir = (currentDisk->bootTrk*currentDisk->sectrk)+(currentDisk->secLength*(32*currentDisk->maxDir));
+      if ((t > currentDisk->bootTrk) && (currentSector < endofDir)) { // Determines if in the range of directories
+        for (int b = 0 ; b < 4 ; b++) { //  Iterates 4 times per sector. 32 byte entry, 128 byte sector.
+          dirPtr directory = malloc(sizeof(struct directory));
+          fread (directory, sizeof(struct directory), 1, diskIn);
+
+          listPtr node = malloc(sizeof(node));
+          node->directory = directory;
+          node->next = head;
+          head = node;
+        }
+      }
+
       //printf("%i", t);
       //printf("%s", ": ");
       //printf("%i\n", secLoc);
       printf("%x\n", sector[0]);
-      secLoc += currentDisk->skew;
+
+      secLoc += currentDisk->skew; // Iterates the current Physical Sector Location
     }
   }
   free(sector);

@@ -30,8 +30,8 @@ struct directory {
 };
 
 struct directoryList {
-  dirPtr* directory;
-  listPtr* next;
+  dirPtr directory;
+  listPtr next;
 };
 
 #endif
