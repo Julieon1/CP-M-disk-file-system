@@ -15,6 +15,7 @@ struct disk
   int maxDir;
   int blockSize;
   int bootTrk;
+  int blockNum;
 };
 
 struct directory {
@@ -29,8 +30,8 @@ struct directory {
 };
 
 struct directoryList {
-  dirPtr* directory;
-  listPtr* next;
+  dirPtr directory;
+  listPtr next;
 };
 
 #endif

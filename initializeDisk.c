@@ -24,8 +24,9 @@ void initializeDisk(diskPtr currentDisk, int flag) {
     currentDisk->maxDir = 64;
     currentDisk->blockSize = 1024;
     currentDisk->bootTrk = 2;
+    currentDisk->blockNum = 250;
   }
-  
+
   else if (flag == 0) {   // 4 Meg hard drive
     currentDisk->secLength = 128;
     currentDisk->tracks = 255;
@@ -35,5 +36,6 @@ void initializeDisk(diskPtr currentDisk, int flag) {
     currentDisk->maxDir = 1024;
     currentDisk->blockSize = 2048;
     currentDisk->bootTrk = 0;
+    currentDisk->blockNum = 2040;
   }
 }

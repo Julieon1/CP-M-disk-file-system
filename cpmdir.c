@@ -1,17 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "Directory.h"
+#include "directory.h"
 #include "readFlag.h"
-#include "readDisk.h"
 #include "initializeDisk.h"
+#include "readDisk.h"
 
-int main(int argc, char* argv[]) {
-  diskPtr currentDisk = malloc(sizeof(struct Disk));
+int main(int argc, char** argv) {
+  char* file = argv[2];
+  FILE* diskIn = fopen(file, "r"); // Opens Disk
+
+  listPtr head = NULL;
+
+  diskPtr currentDisk = malloc(sizeof(struct disk)); // Allocates space for disk information structure
+
   int flag = readFlag(argc, argv); // 1=floppy 0=hard disk
-  //unsigned char* allocationMap[(currentDisk->sectrk*currentDisk->tracks*currentDisk->secLength)/currentDisk->blockSize]; // Sector map of disk blocks
-  initializeDisk(currentDisk, flag);
-  readDisk(argc, argv, currentDisk);
+  initializeDisk(currentDisk, flag); // Determines Disk Information using flag input
+
+  short int allocationMap[currentDisk->blockNum]; // Sector map of disk blocks
+
+  readDisk(diskIn, currentDisk, allocationMap, head); // Reads Disk and creates an allocation map
+
+
+
+  while (head) { // Frees Nodes in directory linked list
+    listPtr node = head;
+    head = head->next;
+    free(node);
+  }
+
 
   free(currentDisk);
+  fclose(diskIn);
 }
