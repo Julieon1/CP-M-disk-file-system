@@ -19,9 +19,9 @@ Our project management charts are on: https://docs.google.com/spreadsheets/d/1rI
 3. get the content of the file
 4. create a new file in toDisk and copy the content
 ### Timeline
-* by April 20 (Sat) : Step 2, 3
-* by April 21 (Sun) : Step 1, 4
-* by April 22 (Mon) : Finalize
+* by April 20 (Sun) : Step 2, 3
+* by April 21 (Mon) : Step 1, 4
+* by April 22 (Tue) : Finalize
 * from April 23 (Tue)-26 (Fri) : combine with teammates
 
 

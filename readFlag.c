@@ -4,7 +4,7 @@
 
 #include "readFlag.h"
 
-int readFlag(int argc, char* argv[]) {
+int readFlag(int argc, char argv[], char usage[]) {
   int flag, opt;
 
   while ((opt = getopt(argc, argv, "fd")) != -1) {
@@ -16,7 +16,7 @@ int readFlag(int argc, char* argv[]) {
         flag = 0;
         break;
       default:
-        printf("Usage %s [-fd] filename(s) \n", argv[0]);
+        printf("%s\n", usage);
         exit(-1);
     }
   }

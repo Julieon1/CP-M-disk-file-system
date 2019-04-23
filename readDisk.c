@@ -4,17 +4,18 @@
 #include "directory.h"
 #include "readDisk.h"
 
+typedef unsigned char *bytePtr;
+
 /*
   Iterates through disk for the directory
-
 */
 
 void readDisk(FILE* diskIn, diskPtr currentDisk, short int* allocationMap, listPtr head ) {
   int allocationTracker = 0; // Tracks the current block allocation location
   int currentSector = 0; // Tracks the current logical sector
   unsigned char sectorSize[currentDisk->secLength];
-  unsigned char* sector = malloc(sizeof(sectorSize));
-
+  // unsigned char *sector = malloc(sizeof(sectorSize));
+  bytePtr sector = (bytePtr)malloc(sizeof(sectorSize));
 
   for (int t = 1 ; t < currentDisk->tracks ; t++) { // Current Track
     int secLoc = 0;
@@ -23,7 +24,6 @@ void readDisk(FILE* diskIn, diskPtr currentDisk, short int* allocationMap, listP
       if (secLoc > currentDisk->sectrk) { // Loops back if current sector location is greater than the sectrk
         secLoc -= currentDisk->sectrk;
       }
-
       if (secLoc == 0) { // Makes the first sector in the track location to be 1
         secLoc = 1;
       }

@@ -6,7 +6,9 @@
 #include "initializeDisk.h"
 #include "readDisk.h"
 
-int main(int argc, char** argv) {
+#define USAGE "Usage %s [-fd] filename(s)"
+
+int main(int argc, char** argv[]) {
   char* file = argv[2];
   FILE* diskIn = fopen(file, "r"); // Opens Disk
 
@@ -14,14 +16,12 @@ int main(int argc, char** argv) {
 
   diskPtr currentDisk = malloc(sizeof(struct disk)); // Allocates space for disk information structure
 
-  int flag = readFlag(argc, argv); // 1=floppy 0=hard disk
+  int flag = readFlag(argc, argv, USAGE); // 1=floppy 0=hard disk
   initializeDisk(currentDisk, flag); // Determines Disk Information using flag input
 
   short int allocationMap[currentDisk->blockNum]; // Sector map of disk blocks
 
   readDisk(diskIn, currentDisk, allocationMap, head); // Reads Disk and creates an allocation map
-
-
 
   while (head) { // Frees Nodes in directory linked list
     listPtr node = head;
