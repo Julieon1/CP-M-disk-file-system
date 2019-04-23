@@ -8,7 +8,6 @@ typedef unsigned char *bytePtr;
 
 /*
   Iterates through disk for the directory
-
 */
 
 void readDisk(FILE* diskIn, diskPtr currentDisk, short int* allocationMap, listPtr head ) {
