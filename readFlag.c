@@ -4,19 +4,21 @@
 
 #include "readFlag.h"
 
-int readFlag(int argc, char argv[], char usage[]) {
+#define USAGE "Usage %s [-fd] filename(s)"
+
+int readFlag(int argc, char* argv[]) {
   int flag, opt;
 
   while ((opt = getopt(argc, argv, "fd")) != -1) {
     switch (opt) {
       case 'f':
-        flag = 1;
-        break;
-      case 'd':
         flag = 0;
         break;
+      case 'd':
+        flag = 1;
+        break;
       default:
-        printf("%s\n", usage);
+        printf("%s\n", USAGE);
         exit(-1);
     }
   }
