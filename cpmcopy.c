@@ -37,22 +37,7 @@ int main(int argc, char** argv[]) {
 		return -1;
   }
 
-  int index = 4;
   FILE *fp;
-  while (index < argc) {
-    if ((fp = fopen(argv[index], "r")) == NULL) {
-      printf("%s can't open file %s\n", argv[0], argv[index]);
-      return 1;
-    }
-    else {
-      while (fgets(line, MAX_LINE, fp) != NULL) {
-        numlines++;
-        numchars += mygetchars(line);
-        numwords += mygetwords(line);
-      }
-    }
-    index++;
-  }
 
 
   struct directory d;
