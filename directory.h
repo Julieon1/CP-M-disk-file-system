@@ -3,6 +3,7 @@
 
 typedef struct directoryList *listPtr;
 typedef struct directory *dirPtr;
+typedef unsigned char *bytePtr;
 
 struct directory {
   unsigned char userNum; // 0 or E5 Status Byte. Read
