@@ -5,42 +5,37 @@
 //#include "disk.h"
 #include "readFlag.h"
 #include "readLogical.h"
+#include "directoryList.h"
 
 int main(int argc, char** argv) {
-  char* file = argv[2];
-  unsigned char seclen[128];
-  char *ptr;
-  int blockNum[2] = {250, 2040};
+  int flag = readFlag(argc, argv); // 1=floppy 0=hard disk
 
+  char* file = argv[2];
+  char* dirEntry = argv[3];
   FILE* diskIn = fopen(file, "r"); // Opens Disk
 
-  int flag = readFlag(argc, argv); // 1=floppy 0=hard disk
-  bytePtr sector = (bytePtr)malloc(sizeof(seclen));
+  listPtr head = NULL;
 
-  if (argc < 4) {
-    for (int i = 0 ; i < blockNum[flag] ; i++) {
-      readLogical(diskIn, i, sector, flag);
-    }
+  if (argc < 2) {
+    printf("%s\n", "Use cpmdir -h for assistance");
   }
   else {
-    long allocationNum = strtol(argv[3], &ptr , 10);
+    directoryList(diskIn, flag, head);
 
-    readLogical(diskIn, allocationNum, sector, flag);
+    //if (argc == 3) {
+
+
+    //}
   }
 
-  //short int allocationMap[currentDisk->blockNum]; // Sector map of disk blocks
 
-  //readDisk(diskIn, currentDisk, allocationMap, head); // Reads Disk and creates an allocation map
-/*
-  while (head) { // Frees Nodes in directory linked list
+
+
+  while (head) {
     listPtr node = head;
     head = head->next;
     free(node);
   }
-
-
-  free(currentDisk);*/
-
-  free(sector);
+  free(head);
   fclose(diskIn);
 }

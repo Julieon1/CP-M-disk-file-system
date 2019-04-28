@@ -10,15 +10,15 @@ static char skew[2][26] = {
 };
 
 static int seclen = 128;
-static int tracks[2] = {77, 255};
+static int tracks[2] = {78, 256};
 static int secttrk[2] = {26, 128};   // sector per track
 static int blocksize[2] = {1024, 2048};
 static int maxdir[2] = {64, 1024};
 // int skew[2] = {6,1};
 static int boottrk[2] = {2, 0};
 
-static int disk_type[2] = {FLOPPY, HDISK};
-static int current_track = 0;
-static int current_index = 0;
+//static int disk_type[2] = {FLOPPY, HDISK};
+int trackIndex;
+int sectorIndex;
 
 #endif

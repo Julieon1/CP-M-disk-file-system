@@ -1,1 +1,1 @@
-void readLogical (FILE* diskIn, long alNum, bytePtr sector, int flag);
+void readLogical (FILE* diskIn, long alNum, int flag);
