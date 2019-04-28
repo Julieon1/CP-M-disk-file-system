@@ -10,7 +10,7 @@ struct directory {
   char fileName[8]; // 7?
   char fileType[3];
   unsigned char fileExtent;
-  unsigned char reserve[1];
+  unsigned char reserve[2];
   unsigned char recordNum;
   char diskmap[16];
 };
