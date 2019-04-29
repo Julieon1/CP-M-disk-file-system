@@ -1,0 +1,2 @@
+
+void readDirectory(dirPtr directory);

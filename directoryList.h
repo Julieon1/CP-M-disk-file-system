@@ -1,3 +1,3 @@
 
 
-void directoryList(FILE* diskIn, int flag, listPtr head);
+void directoryList(FILE* diskIn, int flag, char* dirEntry);
