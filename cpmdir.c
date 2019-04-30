@@ -4,6 +4,8 @@
 #include "directory.h"
 #include "readFlag.h"
 #include "directoryList.h"
+#include "readDirectory.h"
+
 
 int main(int argc, char** argv) {
   int flag = readFlag(argc, argv); // 1=floppy 0=hard disk
@@ -12,6 +14,8 @@ int main(int argc, char** argv) {
   char* dirEntry = argv[3];
   FILE* diskIn = fopen(file, "r"); // Opens Disk
 
+  listPtr head = NULL;
+
   if (argc < 3) {
     printf("%s\n", "Use cpmdir -h for assistance");
   }
@@ -19,10 +23,23 @@ int main(int argc, char** argv) {
     if (argc == 3) {
       dirEntry = "ALL";
     }
-    directoryList(diskIn, flag, dirEntry);
-    //if (argc == 3) {
+    head = directoryList(diskIn, flag, head);
 
-    //}
+    listPtr current = head;
+    printf("%s", current->directory->fileName);
+    while (current) {
+      readDirectory(current->directory);
+      current = current->next;
+
+      //readDirectory(current->directory);
+    }
   }
+
+  while (head) {
+    listPtr node = head;
+    head = head->next;
+    free(node);
+  }
+
   fclose(diskIn);
 }
