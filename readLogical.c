@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "disk.h"
 #include "directory.h"
@@ -11,12 +12,12 @@
   The Allocation Number corresponds to an index of blocks
 */
 
-void readLogical (FILE* diskIn, long alNum, int flag) {
+void readLogical (FILE* diskIn, long alNum, int flag, bytePtr block) {
   int sectorOffset;
   bytePtr sector = (bytePtr)malloc(sizeof(seclen));
 
-  trackIndex = (alNum*blocksize[flag])/(seclen*secttrk[flag]); // determines current track
-  int lockDiff = (alNum*blocksize[flag])-(trackIndex*secttrk[flag]*seclen); // determines byte difference between block start and track start
+  trackIndex = ((alNum*blocksize[flag])/(seclen*secttrk[flag]))+boottrk[flag]; // determines current track
+  int lockDiff = ((alNum*blocksize[flag])+(boottrk[flag]*secttrk[flag]*seclen))-(trackIndex*secttrk[flag]*seclen); // determines byte difference between block start and track start
   sectorIndex = lockDiff / seclen; // Determines index of sector within a track
 
   for (int i = 0 ; i < (blocksize[flag]/seclen) ; i++) {
@@ -26,14 +27,17 @@ void readLogical (FILE* diskIn, long alNum, int flag) {
     else if (flag == 1) {
       sectorOffset = (trackIndex*secttrk[flag]*seclen)+(seclen*sectorIndex);
     }
-    /* Test Prints
+/*
     printf("%i", trackIndex);
     printf("%s", ": ");
     printf("%i", sectorOffset);
     printf("%s", ": ");
     printf("%i\n", skew[flag][sectorIndex]);
 */
-    readPhysical(diskIn, sectorOffset, sector, flag); // reads a single sector
+    fseek(diskIn, sectorOffset, SEEK_SET);
+    fread(sector, sizeof(sector), 1, diskIn);
+
+    strcat(block, sector);
     sectorIndex++;
 
     if (flag == 0) {
