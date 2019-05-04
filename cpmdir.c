@@ -19,27 +19,28 @@ int main(int argc, char** argv) {
   if (argc < 3) {
     printf("%s\n", "Use cpmdir -h for assistance");
   }
+  else if (diskIn == NULL) {
+    printf("%s\n", "No Such Disk Found");
+  }
   else {
     if (argc == 3) {
       dirEntry = "ALL";
     }
+
     head = directoryList(diskIn, flag, head);
 
     listPtr current = head;
-    printf("%s", current->directory->fileName);
     while (current) {
-      readDirectory(current->directory);
+      readDirectory(current->dir);
       current = current->next;
-
-      //readDirectory(current->directory);
     }
-  }
 
-  while (head) {
-    listPtr node = head;
-    head = head->next;
-    free(node);
-  }
 
-  fclose(diskIn);
+    while (head) {
+      listPtr node = head;
+      head = head->next;
+      free(node);
+    }
+    fclose(diskIn);
+  }
 }

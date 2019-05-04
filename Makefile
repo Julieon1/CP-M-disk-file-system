@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall
+CFLAGS = -g
 
 all: cpmdir
 
@@ -18,7 +18,7 @@ readPhysical.o: readPhysical.c readPhysical.h directory.h
 readLogical.o: readLogical.c readLogical.h disk.h directory.h readPhysical.h
 	$(CC) $(CFLAGS) -c readLogical.c
 
-directoryList.o: directoryList.c directoryList.h directory.h disk.h
+directoryList.o: directoryList.c directoryList.h directory.h disk.h readDirectory.h
 	$(CC) $(CFLAGS) -c directoryList.c
 
 readDirectory.o: readDirectory.c readDirectory.h directoryList.h

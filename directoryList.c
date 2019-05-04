@@ -5,10 +5,11 @@
 #include "directory.h"
 #include "disk.h"
 #include "directoryList.h"
+#include "readDirectory.h"
 
 listPtr directoryList(FILE* diskIn, int flag, listPtr head) {
   int sectorOffset;
-  dirPtr dir = (dirPtr)malloc(sizeof(struct directory));
+  //dirPtr dir = (dirPtr)malloc(sizeof(struct directory));
 
   trackIndex = boottrk[flag];
 
@@ -30,11 +31,12 @@ listPtr directoryList(FILE* diskIn, int flag, listPtr head) {
     fseek(diskIn, sectorOffset, SEEK_SET);
     //printf("%i\n", sectorOffset);
     for (int i = 0 ; i < 4 ; i++) {
-      listPtr node = (listPtr)malloc(sizeof(node));
+      listPtr newNode = malloc(sizeof(newNode));
+      dirPtr dir = malloc(sizeof(struct directory));
       fread(dir, 32, 1, diskIn);
-      node->directory = dir;
-      node->next = head;
-      head = node;
+      newNode->dir = dir;
+      newNode->next = head;
+      head = newNode;
     }
     sectorIndex++;
 
@@ -45,6 +47,6 @@ listPtr directoryList(FILE* diskIn, int flag, listPtr head) {
       }
     }
   }
-  free(dir);
+  //free(dir);
   return head;
 }
