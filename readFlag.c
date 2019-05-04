@@ -22,9 +22,9 @@ int readFlag(int argc, char* argv[]) {
         printf("%s\n", "-f for Floppy Disk");
         printf("%s\n", "-d for Hard Disk");
         printf("%s\n", "The diskName should include its extension");
-        printf("%s\n", "Ending at disk name will output all used directories");
-        printf("%s\n", "Adding a file extension (i.e: '.txt') after the diskName will output all directories with that fileType");
-        printf("%s\n", "Adding an entire file name after the diskName will output that specific directory");
+        printf("%s\n", "Ending at disk name will output all used directories when using cpmdir");
+        printf("%s\n", "Adding a file extension (i.e: '.txt') after the diskName will modify all directories with that fileType when using cpmremove and cpmdir");
+        printf("%s\n", "Adding an entire file name after the diskName will modify that specific directory when when using cpmremove and cpmdir");
         exit(-1);
       default:
         printf("%s\n", USAGE);
