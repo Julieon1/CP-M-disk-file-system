@@ -1,13 +1,13 @@
 #ifndef _DIRECTORY_H
 #define _DIRECTORY_H
 
-typedef struct directoryList *listPtr;
+typedef struct directoryList* listPtr;
 typedef struct directory *dirPtr;
 typedef unsigned char *bytePtr;
 
 struct directory {
   unsigned char userNum; // 0 or E5 Status Byte. Read
-  char fileName[8]; // 7?
+  char fileName[8]; 
   char fileType[3];
   unsigned char fileExtent;
   unsigned char reserve[2];
@@ -16,7 +16,7 @@ struct directory {
 };
 
 struct directoryList {
-  dirPtr directory;
+  dirPtr dir;
   listPtr next;
 };
 
