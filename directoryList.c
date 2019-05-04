@@ -9,7 +9,6 @@
 
 listPtr directoryList(FILE* diskIn, int flag, listPtr head) {
   int sectorOffset;
-  //dirPtr dir = (dirPtr)malloc(sizeof(struct directory));
 
   trackIndex = boottrk[flag];
 
@@ -31,8 +30,8 @@ listPtr directoryList(FILE* diskIn, int flag, listPtr head) {
     fseek(diskIn, sectorOffset, SEEK_SET);
     //printf("%i\n", sectorOffset);
     for (int i = 0 ; i < 4 ; i++) {
-      listPtr newNode = malloc(sizeof(newNode));
-      dirPtr dir = malloc(sizeof(struct directory));
+      listPtr newNode = (listPtr)malloc(sizeof(newNode));
+      dirPtr dir = (dirPtr)malloc(sizeof(struct directory));
       fread(dir, 32, 1, diskIn);
       newNode->dir = dir;
       newNode->next = head;
