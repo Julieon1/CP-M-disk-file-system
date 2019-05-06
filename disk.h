@@ -10,10 +10,10 @@ static char skew[2][26] = {
 };
 
 static int seclen = 128;
-static int tracks[2] = {78, 256};
-static int secttrk[2] = {26, 128};   // sector per track
+static int tracks[2] = {78, 1024};
+static int secttrk[2] = {26, 32};   // sector per track
 static int blocksize[2] = {1024, 2048};
-static int maxdir[2] = {64, 1024};
+static int maxdir[2] = {64, 256};
 // int skew[2] = {6,1};
 static int boottrk[2] = {2, 0};
 
