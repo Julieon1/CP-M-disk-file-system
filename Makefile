@@ -1,15 +1,21 @@
 CC = gcc
 CFLAGS = -g
 
-all: cpmdir cpmremove
+all: cpmdir cpmremove cpmcreate
 
 cpmdir: cpmdir.o readFlag.o directoryList.o readDirectory.o
 	$(CC) $(CFLAGS) -o cpmdir cpmdir.o readFlag.o directoryList.o readDirectory.o
 
-cpmremove: cpmremove.o readFlag.o readPhysical.o readLogical.o directoryList.o removeDirectory.o readDirectory.o
-	$(CC) $(CFLAGS) -o cpmremove cpmremove.o readPhysical.o readLogical.o readFlag.o directoryList.o removeDirectory.o readDirectory.o
+cpmremove: cpmremove.o readFlag.o directoryList.o removeDirectory.o readDirectory.o
+	$(CC) $(CFLAGS) -o cpmremove cpmremove.o readFlag.o directoryList.o removeDirectory.o readDirectory.o
 
-cpmremove.o: cpmremove.c readFlag.h directory.h directoryList.h removeDirectory.h 
+cpmcreate: cpmcreate.o readFlag.o
+	$(CC) $(CFLAGS) -o cpmcreate cpmcreate.o readFlag.o
+
+cpmcreate.o: cpmcreate.c readFlag.h directory.h disk.h
+	$(CC) $(CFLAGS) -c cpmcreate.c
+
+cpmremove.o: cpmremove.c readFlag.h directory.h directoryList.h removeDirectory.h
 	$(CC) $(CFLAGS) -c cpmremove.c
 
 cpmdir.o: cpmdir.c readFlag.h directory.h directoryList.h readDirectory.h
@@ -34,4 +40,4 @@ removeDirectory.o: removeDirectory.c removeDirectory.h directoryList.h disk.h re
 	$(CC) $(CFLAGS) -c removeDirectory.c
 
 clean:
-	rm -f *.o cpmremove cpmdir
+	rm -f *.o cpmcreate cpmremove cpmdir
