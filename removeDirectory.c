@@ -64,7 +64,7 @@ void removeDirectory(FILE* diskIn, listPtr head, char* dirEntry, int flag) {
       current = current->next;
     }
   }
-  
+
 /*
   Writes Updated directories to the disk usinfg the sector offset
 

@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
 
   char* file = argv[2];
   char* dirEntry = argv[3];
-  FILE* diskIn = fopen(file, "r+"); // Opens Disk
+  FILE* diskIn = fopen(file, "rbwb"); // Opens Disk
 
   listPtr head = NULL;
 

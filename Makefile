@@ -3,16 +3,16 @@ CFLAGS = -g
 
 all: cpmdir cpmremove
 
-cpmdir: cpmdir.o readFlag.o directoryList.o readDirectory.o
-	$(CC) $(CFLAGS) -o cpmdir cpmdir.o readFlag.o directoryList.o readDirectory.o
+cpmdir: cpmdir.o readFlag.o directoryList.o readDirectory.o fileSearch.o fileOutput.o readLogical.o
+	$(CC) $(CFLAGS) -o cpmdir cpmdir.o readFlag.o directoryList.o readDirectory.o fileSearch.o fileOutput.o readLogical.o
 
 cpmremove: cpmremove.o readFlag.o readPhysical.o readLogical.o directoryList.o removeDirectory.o readDirectory.o
 	$(CC) $(CFLAGS) -o cpmremove cpmremove.o readPhysical.o readLogical.o readFlag.o directoryList.o removeDirectory.o readDirectory.o
 
-cpmremove.o: cpmremove.c readFlag.h directory.h directoryList.h removeDirectory.h 
+cpmremove.o: cpmremove.c readFlag.h directory.h directoryList.h removeDirectory.h
 	$(CC) $(CFLAGS) -c cpmremove.c
 
-cpmdir.o: cpmdir.c readFlag.h directory.h directoryList.h readDirectory.h
+cpmdir.o: cpmdir.c readFlag.h directory.h directoryList.h readDirectory.h fileSearch.h fileOutput.h
 	$(CC) $(CFLAGS) -c cpmdir.c
 
 readFlag.o: readFlag.c readFlag.h
@@ -27,10 +27,16 @@ readLogical.o: readLogical.c readLogical.h disk.h directory.h readPhysical.h
 directoryList.o: directoryList.c directoryList.h directory.h disk.h readDirectory.h
 	$(CC) $(CFLAGS) -c directoryList.c
 
+fileSearch.o: fileSearch.c fileSearch.h directoryList.h readDirectory.h
+	$(CC) $(CFLAGS) -c fileSearch.c
+
+fileOutput.o: fileOutput.c fileOutput.h directoryList.h disk.h readLogical.h readDirectory.h
+	$(CC) $(CFLAGS) -c fileOutput.c
+
 readDirectory.o: readDirectory.c readDirectory.h directoryList.h
 	$(CC) $(CFLAGS) -c readDirectory.c
 
-removeDirectory.o: removeDirectory.c removeDirectory.h directoryList.h disk.h readDirectory.h readLogical.h
+removeDirectory.o: removeDirectory.c removeDirectory.h directoryList.h disk.h readDirectory.h
 	$(CC) $(CFLAGS) -c removeDirectory.c
 
 clean:
