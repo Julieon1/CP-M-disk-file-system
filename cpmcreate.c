@@ -7,18 +7,16 @@
 #include "readFlag.h"
 
 int main(int argc, char** argv) {
-
-
-  int flag = readFlag(argc, argv); // 1 = floppy , 0 = hard disk
-  bytePtr byte = malloc(1);
-  byte = 0xe5;
   FILE *outfile;
-	outfile = fopen(argv[2], "r+");
+  int flag = readFlag(argc, argv); // 1 = floppy , 0 = hard disk
+  bytePtr byte = (bytePtr)malloc(1);
 
-    for (i=0; i < (seclen * tracks[flag] * sectrk[flag]); i++ ){
-      fwrite(byte, sizeof(byte), 1, outfile);
-    }
+	outfile = fopen(argv[2], "wb+");
 
+  byte = strtol("11100010", NULL, 2);
 
+  for (int i=0; i < (seclen * tracks[flag] * secttrk[flag]); i++ ){
+    fwrite(&byte, 1, 1, outfile);
+  }
   fclose(outfile);
 }
